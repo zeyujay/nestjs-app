@@ -53,7 +53,7 @@ jobs:
           docker push ${{ secrets.DOCKER_REPOSITORY }}
         # 推送到我们的 docker 镜像仓库
         # 登录服务器, 执行脚本
-      - name: login sh
+      - name: login ssh
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
