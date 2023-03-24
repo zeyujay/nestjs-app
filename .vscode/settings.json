@@ -1,0 +1,8 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.renderControlCharacters": true, //制表符显示->
+    "editor.renderWhitespace": "all", //空格显示...
+    "editor.formatOnSave": true //每次保存自动格式化
+}

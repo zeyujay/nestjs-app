@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Response,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { Test } from './schemas/test.schema';
@@ -33,5 +25,13 @@ export class TestController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.testService.delete(id);
+  }
+  @Get(':id/:type')
+  async addNotionBook(
+    @Param('id') id: string,
+    @Param('type') type: number,
+  ): Promise<string> {
+    console.log(id, type);
+    return this.testService.addNotionBook(id, type);
   }
 }

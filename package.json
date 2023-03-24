@@ -4,6 +4,7 @@
   "description": "",
   "author": "",
   "private": true,
+  "type": "commonjs",
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
@@ -24,7 +25,10 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/mongoose": "^9.2.1",
     "@nestjs/platform-express": "^9.0.0",
+    "@notionhq/client": "^2.2.3",
     "mongoose": "^6.10.2",
+    "openai": "^3.2.1",
+    "puppeteer": "^19.7.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
