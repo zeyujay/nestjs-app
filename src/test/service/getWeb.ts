@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 01:24:02
+ * @LastEditTime: 2023-03-25 03:04:41
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:
  *
@@ -14,9 +14,18 @@ const getWeb = async function (id, type) {
   // 启动浏览器
   try {
     console.log('=========getWeb begin');
+    const browserFetcher = puppeteer.createBrowserFetcher();
+    const revisionInfo = await browserFetcher.download('1095492');
+
     const browser = await puppeteer.launch({
-      headless: 'new', // 默认是无头模式，这里为了示范所以使用正常模式
+      executablePath: revisionInfo.executablePath,
+      ignoreDefaultArgs: ['--disable-extensions'],
+      headless: true,
+      args: ['--no-sandbox', '--disabled-setupid-sandbox'],
     });
+    /* const browser = await puppeteer.launch({
+      headless: 'new', // 默认是无头模式，这里为了示范所以使用正常模式
+    }); */
     console.log('=========getWeb 创建好浏览器');
     // 控制浏览器打开新标签页面
     const page = (await browser.pages())[0];
