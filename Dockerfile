@@ -3,7 +3,7 @@
 ###################
 
 FROM node:18-alpine As development
-
+RUN apt-get update && apt-get install -y chromium
 # Create app directory
 WORKDIR /usr/src/app
 
