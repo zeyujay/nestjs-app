@@ -28,7 +28,8 @@
     "@notionhq/client": "^2.2.3",
     "mongoose": "^6.10.2",
     "openai": "^3.2.1",
-    "puppeteer": "^19.7.5",
+    "puppeteer": "^19.8.0",
+    "puppeteer-core": "^19.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
