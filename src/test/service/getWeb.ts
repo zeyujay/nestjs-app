@@ -2,26 +2,25 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 17:48:50
+ * @LastEditTime: 2023-03-25 23:05:31
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import puppeteer from 'puppeteer';
-
+console.log('=========getWeb 获取chrome path', puppeteer.executablePath());
 const getWeb = async function (id, type) {
   // 启动浏览器
   try {
     console.log('=========getWeb begin');
     /* const browserFetcher = puppeteer.createBrowserFetcher();
     const revisionInfo = await browserFetcher.download('1095492'); */
-
     let browser;
     try {
-      browser = await puppeteer.launch({
-        /*   executablePath:
-        "/home/pptruser/.cache/puppeteer/chrome/linux-1108766/chrome-linux/chrome", */
+      browser = await puppeteer?.launch({
+        /*         executablePath:
+          '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
         ignoreDefaultArgs: ['--disable-extensions'],
         headless: 'new',
         args: ['--no-sandbox', '--disabled-setupid-sandbox'],

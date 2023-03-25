@@ -2,7 +2,44 @@
 # BUILD FOR LOCAL DEVELOPMENT
 ###################
 FROM node:18 As development
+RUN addgroup --system --gid 1001 nestjs
+RUN adduser --system --uid 1002 nestjs
+USER nestjs
 
+WORKDIR /home/nestjs
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+RUN ls -a
+###################
+# BUILD FOR PRODUCTION
+###################
+FROM node:18 As build
+RUN addgroup --system --gid 1001 nestjs
+RUN adduser --system --uid 1002 nestjs
+USER nestjs
+WORKDIR /home/nestjs
+# In order to run `npm run build` we need access to the Nest CLI which is a dev dependency. In the previous development stage we ran `npm ci` which installed all dependencies, so we can copy over the node_modules directory from the development image
+COPY --chown=nestjs:nestjs . .
+COPY --chown=nestjs:nestjs --from=development /home/nestjs .
+RUN echo '查看build-copy'
+RUN ls -la
+# Run the build command which creates the production bundle
+RUN npm run build
+# Set NODE_ENV environment variable
+ENV NODE_ENV production
+# Running `npm ci` removes the existing node_modules directory and passing in --only=production ensures that only the production dependencies are installed. This ensures that the node_modules directory is as optimized as possible
+#RUN npm ci --only=production && npm cache clean --force
+
+###################
+# PRODUCTION
+###################
+
+FROM node:18 As production
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   fonts-liberation \
@@ -43,38 +80,7 @@ RUN apt-get update && apt-get install -y \
 RUN addgroup --system --gid 1001 nestjs
 RUN adduser --system --uid 1002 nestjs
 USER nestjs
-
-WORKDIR /home/nestjs
-
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-RUN npm ci
-
-###################
-# BUILD FOR PRODUCTION
-###################
-FROM node:18 As build
-COPY --chown=nestjs:nestjs package*.json ./
-# In order to run `npm run build` we need access to the Nest CLI which is a dev dependency. In the previous development stage we ran `npm ci` which installed all dependencies, so we can copy over the node_modules directory from the development image
-COPY --chown=nestjs:nestjs --from=development /usr/src/app/node_modules ./node_modules
-COPY --chown=nestjs:nestjs . .
-# Run the build command which creates the production bundle
-RUN npm run build
-# Set NODE_ENV environment variable
-ENV NODE_ENV production
-# Running `npm ci` removes the existing node_modules directory and passing in --only=production ensures that only the production dependencies are installed. This ensures that the node_modules directory is as optimized as possible
-RUN npm ci --only=production && npm cache clean --force
-
-###################
-# PRODUCTION
-###################
-
-FROM node:18 As production
+#WORKDIR /home/nestjs
 
 ENV NODE_ENV production
 
@@ -84,7 +90,10 @@ ENV PORT 3002
 # Copy the bundled code from the build stage to the production image
 COPY --chown=nestjs:nestjs --from=build /home/nestjs/node_modules ./node_modules
 COPY --chown=nestjs:nestjs --from=build /home/nestjs/dist ./dist
+COPY --chown=nestjs:nestjs --from=build /home/nestjs/.cache /home/nestjs/.cache
 
+RUN echo '查看pro'
+RUN ls -la
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
 
