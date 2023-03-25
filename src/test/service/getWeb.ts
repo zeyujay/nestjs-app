@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-26 02:28:41
+ * @LastEditTime: 2023-03-26 02:48:37
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:
  *
@@ -14,8 +14,6 @@ const getWeb = async function (id) {
   // 启动浏览器
   try {
     console.log('=========getWeb begin');
-    /* const browserFetcher = puppeteer.createBrowserFetcher();
-    const revisionInfo = await browserFetcher.download('1095492'); */
     let browser;
     try {
       browser = await puppeteer?.launch({
