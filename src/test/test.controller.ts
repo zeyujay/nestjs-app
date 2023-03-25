@@ -28,7 +28,6 @@ export class TestController {
   }
   @Get(':id')
   async addNotionBook(@Param('id') id: string): Promise<string> {
-    console.log(id, type);
     return this.testService.addNotionBook(id);
   }
 }
