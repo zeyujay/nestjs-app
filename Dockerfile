@@ -41,9 +41,8 @@ RUN apt-get update && apt-get install -y \
   libxtst6 \
   lsb-release \
   wget \
-  xdg-utils \
-  WORKDIR /usr/src/app
-
+  xdg-utils
+WORKDIR /usr/src/app
 # Copy application dependency manifests to the container image.
 # A wildcard is used to ensure copying both package.json AND package-lock.json (when available).
 # Copying this first prevents re-running npm install on every code change.
