@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { Test } from './schemas/test.schema';
@@ -17,10 +25,10 @@ export class TestController {
     return this.testService.findAll();
   }
 
-  @Get(':id')
+  /* @Get(':id')
   async findOne(@Param('id') id: string): Promise<Test> {
     return this.testService.findOne(id);
-  }
+  } */
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
