@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 23:05:31
+ * @LastEditTime: 2023-03-26 02:28:41
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:
  *
@@ -10,7 +10,7 @@
  */
 import puppeteer from 'puppeteer';
 console.log('=========getWeb 获取chrome path', puppeteer.executablePath());
-const getWeb = async function (id, type) {
+const getWeb = async function (id) {
   // 启动浏览器
   try {
     console.log('=========getWeb begin');
@@ -34,10 +34,12 @@ const getWeb = async function (id, type) {
     /*   await page.setUserAgent(
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
   ); */
-    console.log(1);
-    // 在新标签中打开要爬取的网页
 
-    if (type === 4) {
+    // 在新标签中打开要爬取的网页
+    console.log();
+    const reg = /^(tt\d{7,10}|\d{9}(X|\d)|\d{13}|\d{8,14})$/;
+
+    if (!reg.test(id)) {
       await page.goto(
         `https://www.xiaoheihe.cn/home` /* {
       timeout: 100000,

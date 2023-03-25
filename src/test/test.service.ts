@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 10:30:39
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 00:38:32
+ * @LastEditTime: 2023-03-26 02:29:13
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/test.service.ts
  * @Description:
  *
@@ -34,10 +34,9 @@ export class TestService {
   async findOne(id: string): Promise<Test> {
     return this.testModel.findOne({ _id: id }).exec();
   }
-  async addNotionBook(id: string, type: number): Promise<string> {
-    console.log('begin');
+  async addNotionBook(id: string): Promise<string> {
     try {
-      const obj = await getWeb(id, type);
+      const obj = await getWeb(id);
       console.log('begin setItem', obj);
       const result = await setItem(obj, id);
       if (result && result.id) return 'success';

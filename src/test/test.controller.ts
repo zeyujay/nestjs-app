@@ -26,12 +26,9 @@ export class TestController {
   async delete(@Param('id') id: string) {
     return this.testService.delete(id);
   }
-  @Get(':id/:type')
-  async addNotionBook(
-    @Param('id') id: string,
-    @Param('type') type: number,
-  ): Promise<string> {
+  @Get(':id')
+  async addNotionBook(@Param('id') id: string): Promise<string> {
     console.log(id, type);
-    return this.testService.addNotionBook(id, type);
+    return this.testService.addNotionBook(id);
   }
 }
