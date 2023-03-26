@@ -28,8 +28,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
-          username: ubuntu
+          username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.REMOTE_PASSWORD }}
           # 执行脚本
           script: |
-            sudo -u root ./deploy.sh ${{ vars.USER_NAME }} ${{ vars.IMAGE_NAME }} ${{ vars.PORT }} ${{ vars.CONTAINS_PORT }}
+            ./deploy.sh ${{ vars.USER_NAME }} ${{ vars.IMAGE_NAME }} ${{ vars.PORT }} ${{ vars.CONTAINS_PORT }}
