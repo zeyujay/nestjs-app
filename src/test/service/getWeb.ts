@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-26 16:28:35
+ * @LastEditTime: 2023-03-27 02:02:16
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:
  *
@@ -120,7 +120,7 @@ const getWeb = async function (id) {
       console.log('=======获取到游戏数据', detailData);
       await browser.close();
       return {
-        code: 0,
+        code: 1,
         message: '成功获取数据',
         data: Object.assign(baseData, detailData),
       };
@@ -333,7 +333,7 @@ const getWeb = async function (id) {
     console.log('==========获取到非游戏数据', detailData);
     await browser.close();
     return {
-      code: 0,
+      code: 1,
       message: '成功获取数据',
       data: Object.assign(baseData, detailData),
     };
