@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 13:32:33
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 00:09:26
+ * @LastEditTime: 2023-03-27 02:15:31
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/setItem.ts
  * @Description:
  *
@@ -36,42 +36,69 @@ const setItem = async (obj, id) => {
     default:
       break;
   }
-  console.log(666666, data);
+  console.log('=======查询重复开始', data);
   const queryPageResult = await notion.queryPage(
     data.databaseId,
     typeEnum[obj['类型']].tag,
     id,
   );
   if (queryPageResult?.results?.length > 0) {
+    console.log('========更新note');
     data.page_id = queryPageResult.results[0].id;
-    const result = await notion.updatePage(data);
-    if (result && result.id) {
-      console.log('更新成功');
-      return result;
-    } else {
-      console.log('更新失败');
-      return;
+    try {
+      const result = await notion.updatePage(data);
+      if (result && result.id) {
+        console.log('========更新note结束', result);
+        return {
+          code: 1,
+          message: '更新成功',
+          data: result,
+        };
+      } else {
+        console.log('更新失败');
+        return;
+      }
+    } catch (error) {
+      console.log(error.body);
+      return {
+        code: 0,
+        message: '添加失败',
+        data: null,
+      };
     }
   } else {
-    console.log(7777, 'begin');
-    const createResult = await notion.createPage(data);
-    const createAllResult = await setAll(obj, createResult);
-    const updateData = {
-      page_id: createResult.id,
-      parent: { database_id: data.databaseId },
-      properties: {
-        All: {
-          relation: [
-            {
-              id: createAllResult.id,
-            },
-          ],
+    console.log('===========添加note', 'begin');
+    try {
+      const createResult = await notion.createPage(data);
+      const createAllResult = await setAll(obj, createResult);
+      const updateData = {
+        page_id: createResult.id,
+        parent: { database_id: data.databaseId },
+        properties: {
+          All: {
+            relation: [
+              {
+                id: createAllResult.id,
+              },
+            ],
+          },
         },
-      },
-    };
-    const updateResult = await notion.updatePage(updateData);
-    console.log(updateResult);
-    return updateResult;
+      };
+      const updateResult = await notion.updatePage(updateData);
+      console.log('===========添加note结束', updateResult);
+      return {
+        code: 1,
+        message: '添加成功',
+        data: updateResult,
+      };
+    } catch (error) {
+      console.log(error.body);
+      return {
+        code: 0,
+        message: '添加失败',
+        data: null,
+      };
+    }
   }
 };
 export default setItem;
