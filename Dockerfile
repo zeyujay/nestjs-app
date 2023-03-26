@@ -14,7 +14,7 @@ RUN \
   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
   fi
-RUN ls -a
+#RUN ls -a
 ###################
 # BUILD FOR PRODUCTION
 ###################
@@ -92,8 +92,8 @@ COPY --chown=nestjs:nestjs --from=build /home/nestjs/node_modules ./node_modules
 COPY --chown=nestjs:nestjs --from=build /home/nestjs/dist ./dist
 COPY --chown=nestjs:nestjs --from=build /home/nestjs/.cache /home/nestjs/.cache
 
-RUN echo '查看pro'
-RUN ls -la
+#RUN echo '查看pro'
+#RUN ls -la
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
 

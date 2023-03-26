@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-26 02:48:37
+ * @LastEditTime: 2023-03-26 16:28:35
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:
  *
@@ -13,20 +13,15 @@ console.log('=========getWeb 获取chrome path', puppeteer.executablePath());
 const getWeb = async function (id) {
   // 启动浏览器
   try {
-    console.log('=========getWeb begin');
-    let browser;
-    try {
-      browser = await puppeteer?.launch({
-        /*         executablePath:
-          '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
-        ignoreDefaultArgs: ['--disable-extensions'],
-        headless: 'new',
-        args: ['--no-sandbox', '--disabled-setupid-sandbox'],
-      });
-    } catch (error) {
-      console.error(error);
-    }
-    console.log('=========getWeb 创建好浏览器');
+    console.log('=========getWeb begin brower');
+    const browser = await puppeteer?.launch({
+      /*         executablePath:
+        '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
+      ignoreDefaultArgs: ['--disable-extensions'],
+      headless: 'new',
+      args: ['--no-sandbox', '--disabled-setupid-sandbox'],
+    });
+    console.log('=========getWeb end brower');
     // 控制浏览器打开新标签页面
     const page = (await browser.pages())[0];
     /*   await page.setUserAgent(
@@ -34,22 +29,15 @@ const getWeb = async function (id) {
   ); */
 
     // 在新标签中打开要爬取的网页
-    console.log();
     const reg = /^(tt\d{7,10}|\d{9}(X|\d)|\d{13}|\d{8,14})$/;
-
     if (!reg.test(id)) {
-      await page.goto(
-        `https://www.xiaoheihe.cn/home` /* {
-      timeout: 100000,
-    } */,
-      );
       await page.setViewport({
         width: 1920,
         height: 1080,
       });
-      /*   const a = await page.$x(
-      "//span[@class='iconfont heybox-action-search open show']"
-    ); */
+      await page.goto(`https://www.xiaoheihe.cn/home`, {
+        timeout: 20000,
+      });
       const baseData: any = {};
       const searchBtn = await page.$('.search-btn button');
       await searchBtn.click();
@@ -98,7 +86,6 @@ const getWeb = async function (id) {
           document.querySelector('.menu-list').children,
           function (item) {
             const search = item.children[0].childNodes[0].nodeValue;
-            console.log(search);
             switch (search) {
               case '发布时间：':
                 obj['发布时间'] = item.children[0].childNodes[1].textContent;
@@ -130,23 +117,17 @@ const getWeb = async function (id) {
         );
         return obj;
       });
+      console.log('=======获取到游戏数据', detailData);
       await browser.close();
-      return Object.assign(baseData, detailData);
+      return {
+        code: 0,
+        message: '成功获取数据',
+        data: Object.assign(baseData, detailData),
+      };
     }
-    await page.goto(
-      `https://www.douban.com/search?q=${id}` /* {
-    timeout: 100000,
-  } */,
-    );
-    console.log(2);
-
-    /* await page.screenshot({
-    path: "./image/1.png",
-    type: "png",
-    fullPage: true,
-  }); */
-    console.log(3);
-
+    await page.goto(`https://www.douban.com/search?q=${id}`, {
+      timeout: 20000,
+    });
     // 使用evaluate方法在浏览器中执行传入函数（完全的浏览器环境，所以函数内可以直接使用window、document等所有对象和方法）
     const baseData = await page.evaluate(() => {
       const h3: any = document.querySelectorAll('h3')[0];
@@ -160,7 +141,6 @@ const getWeb = async function (id) {
         链接: href,
       };
     });
-    console.log(4, baseData);
     await page.goto(baseData['链接'], { timeout: 100000 });
     const detailData: any = await page.evaluate(async () => {
       const obj: any = {};
@@ -171,16 +151,12 @@ const getWeb = async function (id) {
         wrapper.querySelector('.nbgnbg img')?.src;
       obj['豆瓣评分'] = wrapper.querySelector('.rating_num').textContent;
       const info = document.getElementById('info');
-      console.log(info.childNodes);
-
       const list = Array.prototype.filter.call(
         info.childNodes,
         function (item) {
-          console.log(item);
           return !item?.nodeValue || !!item.nodeValue.trim();
         },
       );
-      console.log(list);
       Array.prototype.forEach.call(list, function (item, index) {
         if (item.tagName === 'SPAN') {
           if (item.children.length > 0) {
@@ -202,27 +178,20 @@ const getWeb = async function (id) {
                   .join(' / ');
                 break;
               case '编剧':
-                console.log('编剧11111111', item.children);
-
                 obj['编剧'] = Array.prototype.filter
                   .call(item.children[1].children, function (item, index) {
                     return index >= 0;
                   })
                   .map((item) => item.textContent)
                   .join(' / ');
-                console.log('编剧11111111', item.children);
-
                 break;
               case '主演':
-                console.log('主演11111111', item.children);
                 obj['主演'] = Array.prototype.filter
                   .call(item.children[1].children, function (item, index) {
                     return index < 5;
                   })
                   .map((item) => item.textContent)
                   .join(' / ');
-                console.log('主演11111111', obj['主演']);
-
                 break;
               case ' 作者':
                 obj['作者'] = Array.prototype.filter
@@ -245,7 +214,6 @@ const getWeb = async function (id) {
                 break;
             }
           }
-          console.log(obj);
           switch (item.textContent) {
             case '类型:':
               obj['类别'] = Array.prototype.map
@@ -344,15 +312,12 @@ const getWeb = async function (id) {
               obj['ISBN'] = list[index + 1].nodeValue.trim();
               break;
             default:
-              console.log("'1231231231231'");
               break;
           }
         }
       });
-      console.log(obj);
       return obj;
     });
-
     if (baseData['类型'] === '影视') {
       await page.goto('https://www.imdb.com/title/' + detailData.IMDb.trim());
       const IMdbData = await page.evaluate(async () => {
@@ -365,13 +330,20 @@ const getWeb = async function (id) {
         detailData['IMDb评分'] = IMdbData;
       }
     }
-    console.log(1111111);
-
-    console.log(detailData);
+    console.log('==========获取到非游戏数据', detailData);
     await browser.close();
-    return Object.assign(baseData, detailData);
+    return {
+      code: 0,
+      message: '成功获取数据',
+      data: Object.assign(baseData, detailData),
+    };
   } catch (error) {
     console.log(error);
+    return {
+      code: 0,
+      message: error.body,
+      data: null,
+    };
   }
 };
 export default getWeb;
