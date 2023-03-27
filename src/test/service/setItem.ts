@@ -2,8 +2,8 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 13:32:33
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-27 02:15:31
- * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/setItem.ts
+ * @LastEditTime: 2023-03-27 18:46:43
+ * @FilePath: /nestjs-app/src/test/service/setItem.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -56,13 +56,17 @@ const setItem = async (obj, id) => {
         };
       } else {
         console.log('更新失败');
-        return;
+        return {
+          code: 0,
+          message: '更新失败',
+          data: null,
+        };
       }
     } catch (error) {
       console.log(error.body);
       return {
         code: 0,
-        message: '添加失败',
+        message: '更新失败',
         data: null,
       };
     }
