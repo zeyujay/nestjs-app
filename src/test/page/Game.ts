@@ -2,8 +2,8 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 17:17:56
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 00:08:33
- * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/page/Game.ts
+ * @LastEditTime: 2023-03-27 18:26:34
+ * @FilePath: /nestjs-app/src/test/page/Game.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -17,7 +17,7 @@ class Game extends PageEntity {
     又名: { rich_text: { text: { content: any } }[] };
     /*  类型: {
             select: {
-              name: origin["类型"]?.trim() || "",
+              name: origin?.["类型"]?.trim() || "",
             },
           }, */
     开发商: { rich_text: { text: { content: any } }[] };
@@ -35,7 +35,7 @@ class Game extends PageEntity {
         title: [
           {
             text: {
-              content: origin['名字']?.trim() || '',
+              content: origin?.['名字']?.trim() || '',
             },
           },
         ],
@@ -44,21 +44,21 @@ class Game extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['又名']?.trim() || '',
+              content: origin?.['又名']?.trim() || '',
             },
           },
         ],
       },
       /*  类型: {
               select: {
-                name: origin["类型"]?.trim() || "",
+                name: origin?.["类型"]?.trim() || "",
               },
             }, */
       开发商: {
         rich_text: [
           {
             text: {
-              content: origin['开发商']?.join(' / ')?.trim() || '',
+              content: origin?.['开发商']?.join(' / ')?.trim() || '',
             },
           },
         ],
@@ -67,7 +67,7 @@ class Game extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['发行商']?.join(' / ')?.trim() || '',
+              content: origin?.['发行商']?.join(' / ')?.trim() || '',
             },
           },
         ],
@@ -75,7 +75,7 @@ class Game extends PageEntity {
 
       发布时间: {
         date: {
-          start: origin['发布时间']
+          start: origin?.['发布时间']
             ?.trim()
             .replace('月', '-')
             .replace('年', '-')
@@ -87,7 +87,7 @@ class Game extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['系列']?.trim() || '',
+              content: origin?.['系列']?.trim() || '',
             },
           },
         ],
@@ -98,13 +98,13 @@ class Game extends PageEntity {
             text: {
               content:
                 '⭐️'.repeat(
-                  Math.round(origin['Metacritic评分'] / 10 / 2) * 1,
+                  Math.round(origin?.['Metacritic评分'] / 10 / 2) * 1,
                 ) || '',
             },
           },
           {
             text: {
-              content: origin['Metacritic评分']?.trim() || '',
+              content: origin?.['Metacritic评分']?.trim() || '',
             },
           },
         ],

@@ -17,7 +17,7 @@ class Book extends PageEntity {
     丛书: { rich_text: { text: { content: any } }[] };
     /*  类型: {
             select: {
-              name: origin["类型"]?.trim() || "",
+              name: origin?.["类型"]?.trim() || "",
             },
           }, */
     豆瓣评分: { rich_text: { text: { content: any } }[] };
@@ -32,7 +32,7 @@ class Book extends PageEntity {
         title: [
           {
             text: {
-              content: origin['名字']?.trim() || '',
+              content: origin?.['名字']?.trim() || '',
             },
           },
         ],
@@ -41,7 +41,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['原作名']?.trim() || '',
+              content: origin?.['原作名']?.trim() || '',
             },
           },
         ],
@@ -50,7 +50,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['作者']?.trim() || '',
+              content: origin?.['作者']?.trim() || '',
             },
           },
         ],
@@ -59,7 +59,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['译者']?.trim() || '',
+              content: origin?.['译者']?.trim() || '',
             },
           },
         ],
@@ -68,7 +68,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['出版社']?.trim() || '',
+              content: origin?.['出版社']?.trim() || '',
             },
           },
         ],
@@ -77,7 +77,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['出品方']?.trim() || '',
+              content: origin?.['出品方']?.trim() || '',
             },
           },
         ],
@@ -86,7 +86,7 @@ class Book extends PageEntity {
         date: {
           start:
             new Date(
-              new Date(origin['出版年']?.trim()).getTime() +
+              new Date(origin?.['出版年']?.trim()).getTime() +
                 1000 * 60 * 60 * 24,
             )
               .toISOString()
@@ -97,7 +97,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['页数']?.trim() || '',
+              content: origin?.['页数']?.trim() || '',
             },
           },
         ],
@@ -106,7 +106,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['定价']?.trim() || '',
+              content: origin?.['定价']?.trim() || '',
             },
           },
         ],
@@ -115,7 +115,7 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['装帧']?.trim() || '',
+              content: origin?.['装帧']?.trim() || '',
             },
           },
         ],
@@ -124,14 +124,14 @@ class Book extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['丛书']?.trim() || '',
+              content: origin?.['丛书']?.trim() || '',
             },
           },
         ],
       },
       /*  类型: {
               select: {
-                name: origin["类型"]?.trim() || "",
+                name: origin?.["类型"]?.trim() || "",
               },
             }, */
       豆瓣评分: {
@@ -139,12 +139,12 @@ class Book extends PageEntity {
           {
             text: {
               content:
-                '⭐️'.repeat(Math.round(origin['豆瓣评分'] / 2) * 1) || '',
+                '⭐️'.repeat(Math.round(origin?.['豆瓣评分'] / 2) * 1) || '',
             },
           },
           {
             text: {
-              content: origin['豆瓣评分']?.trim() || '',
+              content: origin?.['豆瓣评分']?.trim() || '',
             },
           },
         ],

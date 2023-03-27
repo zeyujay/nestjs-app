@@ -14,7 +14,7 @@ class Movie extends PageEntity {
     又名: { rich_text: { text: { content: any } }[] };
     /*  类型: {
             select: {
-              name: origin["类型"]?.trim() || "",
+              name: origin?.["类型"]?.trim() || "",
             },
           }, */
     豆瓣评分: { rich_text: { text: { content: any } }[] };
@@ -30,7 +30,7 @@ class Movie extends PageEntity {
         title: [
           {
             text: {
-              content: origin['名字']?.trim() || '',
+              content: origin?.['名字']?.trim() || '',
             },
           },
         ],
@@ -39,7 +39,7 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['导演']?.trim() || '',
+              content: origin?.['导演']?.trim() || '',
             },
           },
         ],
@@ -48,7 +48,7 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['编剧']?.trim() || '',
+              content: origin?.['编剧']?.trim() || '',
             },
           },
         ],
@@ -57,7 +57,7 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['主演']?.trim() || '',
+              content: origin?.['主演']?.trim() || '',
             },
           },
         ],
@@ -67,7 +67,7 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['类别']?.trim() || '',
+              content: origin?.['类别']?.trim() || '',
             },
           },
         ],
@@ -76,7 +76,7 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['制片国家/地区']?.trim() || '',
+              content: origin?.['制片国家/地区']?.trim() || '',
             },
           },
         ],
@@ -86,7 +86,7 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['语言']?.trim() || '',
+              content: origin?.['语言']?.trim() || '',
             },
           },
         ],
@@ -95,7 +95,7 @@ class Movie extends PageEntity {
         date: {
           start:
             new Date(
-              new Date(origin['上映日期']?.trim()).getTime() * 1 +
+              new Date(origin?.['上映日期']?.trim()).getTime() * 1 +
                 1000 * 60 * 60 * 24,
             )
               .toISOString()
@@ -106,14 +106,14 @@ class Movie extends PageEntity {
         rich_text: [
           {
             text: {
-              content: origin['又名']?.trim() || '',
+              content: origin?.['又名']?.trim() || '',
             },
           },
         ],
       },
       /*  类型: {
               select: {
-                name: origin["类型"]?.trim() || "",
+                name: origin?.["类型"]?.trim() || "",
               },
             }, */
       豆瓣评分: {
@@ -121,12 +121,12 @@ class Movie extends PageEntity {
           {
             text: {
               content:
-                '⭐️'.repeat(Math.round(origin['豆瓣评分'] / 2) * 1) || '',
+                '⭐️'.repeat(Math.round(origin?.['豆瓣评分'] / 2) * 1) || '',
             },
           },
           {
             text: {
-              content: origin['豆瓣评分']?.trim() || '',
+              content: origin?.['豆瓣评分']?.trim() || '',
             },
           },
         ],
@@ -145,12 +145,12 @@ class Movie extends PageEntity {
           {
             text: {
               content:
-                '⭐️'.repeat(Math.round(origin['IMDb评分'] / 2) * 1) || '',
+                '⭐️'.repeat(Math.round(origin?.['IMDb评分'] / 2) * 1) || '',
             },
           },
           {
             text: {
-              content: origin['IMDb评分']?.trim() || '',
+              content: origin?.['IMDb评分']?.trim() || '',
             },
           },
         ],
