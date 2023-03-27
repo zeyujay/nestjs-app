@@ -2,9 +2,9 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 00:58:20
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 00:22:26
- * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/app.service.ts
- * @Description:
+ * @LastEditTime: 2023-03-27 17:59:08
+ * @FilePath: /nestjs-app/src/app.service.ts
+ * @Description:app.service.ts
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
@@ -14,7 +14,6 @@ const configuration = new Configuration({
   organization: 'org-zS6xDRcgp66M87hqrdwIyvn4',
   apiKey: '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',
 });
-
 @Injectable()
 export class AppService {
   async getHello(qustion: string): Promise<any[]> {
