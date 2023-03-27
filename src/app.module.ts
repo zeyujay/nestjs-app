@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 00:58:20
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 00:17:14
+ * @LastEditTime: 2023-03-28 03:14:49
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/app.module.ts
  * @Description:
  *
@@ -17,7 +17,7 @@ import { TestModule } from './test/test.module';
 @Module({
   imports: [
     TestModule,
-    MongooseModule.forRoot('mongodb://43.206.19.9:27017/test'),
+    MongooseModule.forRoot('mongodb://zeyujay.xyz:27017/test'),
   ],
   controllers: [AppController],
   providers: [AppService],
