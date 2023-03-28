@@ -1,12 +1,14 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Query,
-} from '@nestjs/common';
+/*
+ * @Author: zeyujay zeyujay@gmail.com
+ * @Date: 2023-03-11 10:39:49
+ * @LastEditors: zeyujay zeyujay@gmail.com
+ * @LastEditTime: 2023-03-28 12:55:15
+ * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/test.controller.ts
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { Test } from './schemas/test.schema';
