@@ -2,14 +2,15 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 00:58:20
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-27 18:10:07
- * @FilePath: /nestjs-app/src/app.service.ts
+ * @LastEditTime: 2023-03-30 03:37:27
+ * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/app.service.ts
  * @Description:app.service.ts11
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { Injectable } from '@nestjs/common';
 import { Configuration, OpenAIApi } from 'openai';
+
 const configuration = new Configuration({
   organization: 'org-zS6xDRcgp66M87hqrdwIyvn4',
   apiKey: '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',

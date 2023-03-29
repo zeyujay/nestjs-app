@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-30 02:44:41
+ * @LastEditTime: 2023-03-30 03:26:23
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
@@ -15,11 +15,11 @@ const getWeb = async function (id) {
   try {
     console.log('=========getWeb begin brower');
     const browser = await puppeteer?.launch({
-      headless: false,
+      headless: true,
       /*         executablePath:
         '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
-      /*  ignoreDefaultArgs: ['--disable-extensions'],
-      args: ['--no-sandbox', '--disabled-setupid-sandbox'], */
+      ignoreDefaultArgs: ['--disable-extensions'],
+      args: ['--no-sandbox', '--disabled-setupid-sandbox'],
     });
 
     console.log('=========getWeb end brower');

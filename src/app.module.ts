@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 00:58:20
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-28 05:55:51
+ * @LastEditTime: 2023-03-30 04:38:19
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/app.module.ts
  * @Description:111111
  *
@@ -13,7 +13,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TestModule } from './test/test.module';
-
 @Module({
   imports: [
     TestModule,
