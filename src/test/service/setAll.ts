@@ -2,18 +2,17 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 13:32:33
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-26 16:02:20
+ * @LastEditTime: 2023-03-30 02:17:02
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/setAll.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import Notion from './notion.js';
-const databaseIdAll = 'ccfb824822914a588b72acfcc7e74465';
 const setAll = async (obj, relateData) => {
-  const notion = Notion.getInstance();
+  const notion = Notion.getInstance(obj.auth);
   const data = {
-    parent: { database_id: databaseIdAll },
+    parent: { database_id: obj.databaseIdAll },
     icon: {
       type: 'external',
       external: { url: obj.cover },

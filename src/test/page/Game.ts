@@ -2,8 +2,8 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 17:17:56
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-27 18:26:34
- * @FilePath: /nestjs-app/src/test/page/Game.ts
+ * @LastEditTime: 2023-03-30 02:41:06
+ * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/page/Game.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -11,15 +11,9 @@
 import PageEntity from './PageEntity.js';
 
 class Game extends PageEntity {
-  databaseId: string;
   properties: {
     名字: { title: { text: { content: any } }[] };
     又名: { rich_text: { text: { content: any } }[] };
-    /*  类型: {
-            select: {
-              name: origin?.["类型"]?.trim() || "",
-            },
-          }, */
     开发商: { rich_text: { text: { content: any } }[] };
     发行商: { rich_text: { text: { content: any } }[] };
     发布时间: { date: { start: any } };
@@ -28,8 +22,6 @@ class Game extends PageEntity {
   };
   constructor(origin) {
     super(origin);
-    this.databaseId = '26519ef4298e42248d54f50ab418e5ad';
-    this.parent = { database_id: this.databaseId };
     this.properties = {
       名字: {
         title: [

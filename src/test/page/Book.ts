@@ -1,8 +1,6 @@
 import PageEntity from './PageEntity.js';
 
 class Book extends PageEntity {
-  databaseId: string;
-  parent: { database_id: any };
   properties: {
     名字: { title: { text: { content: any } }[] };
     原作名: { rich_text: { text: { content: any } }[] };
@@ -25,8 +23,6 @@ class Book extends PageEntity {
   };
   constructor(origin) {
     super(origin);
-    this.databaseId = 'c85debe4baa041d0b5e6914a54b84ea6';
-    this.parent = { database_id: this.databaseId };
     this.properties = {
       名字: {
         title: [

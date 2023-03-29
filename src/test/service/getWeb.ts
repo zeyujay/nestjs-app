@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-29 23:38:42
+ * @LastEditTime: 2023-03-30 02:44:41
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
@@ -15,19 +15,20 @@ const getWeb = async function (id) {
   try {
     console.log('=========getWeb begin brower');
     const browser = await puppeteer?.launch({
+      headless: false,
       /*         executablePath:
         '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
-      ignoreDefaultArgs: ['--disable-extensions'],
-      args: ['--no-sandbox', '--disabled-setupid-sandbox'],
+      /*  ignoreDefaultArgs: ['--disable-extensions'],
+      args: ['--no-sandbox', '--disabled-setupid-sandbox'], */
     });
 
     console.log('=========getWeb end brower');
     // 控制浏览器打开新标签页面
     const page = (await browser.pages())[0];
     //const page = await browser.newPage();
-    /*   await page.setUserAgent(
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
-  ); */
+    await page.setUserAgent(
+      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36',
+    );
 
     // 在新标签中打开要爬取的网页
     const reg = /^(tt\d{7,10}|\d{9}(X|\d)|\d{13}|\d{8,14})$/;
@@ -128,7 +129,8 @@ const getWeb = async function (id) {
       };
     }
     await page.goto(`https://www.douban.com/search?q=${id}`, {
-      timeout: 20000,
+      waitUntil: 'load',
+      timeout: 0,
     });
     // 使用evaluate方法在浏览器中执行传入函数（完全的浏览器环境，所以函数内可以直接使用window、document等所有对象和方法）
     const baseData = await page.evaluate(() => {

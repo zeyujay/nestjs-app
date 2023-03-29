@@ -1,7 +1,6 @@
 import PageEntity from './PageEntity.js';
 
 class Movie extends PageEntity {
-  databaseId: string;
   properties: {
     名字: { title: { text: { content: any } }[] };
     导演: { rich_text: { text: { content: any } }[] };
@@ -23,8 +22,6 @@ class Movie extends PageEntity {
   };
   constructor(origin) {
     super(origin);
-    this.databaseId = '56c5674632c54ef8a076bacb15c70062';
-    this.parent = { database_id: this.databaseId };
     this.properties = {
       名字: {
         title: [

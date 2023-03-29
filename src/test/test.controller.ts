@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 10:39:49
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-28 12:55:15
+ * @LastEditTime: 2023-03-30 01:08:45
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/test.controller.ts
  * @Description:
  *
@@ -27,8 +27,7 @@ export class TestController {
     return this.testService.findAll();
   }
 
-  /* @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Test> {
+  /* async findOne(id: string): Promise<Test> {
     return this.testService.findOne(id);
   } */
 

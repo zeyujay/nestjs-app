@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 13:47:15
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-25 00:05:44
+ * @LastEditTime: 2023-03-30 01:18:49
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/notion.ts
  * @Description:
  *
@@ -13,13 +13,13 @@ import { Client } from '@notionhq/client';
 class Notion {
   static instance: any;
   notion: Client;
-  constructor() {
+  constructor(auth) {
     if (Notion.instance) {
       return Notion.instance;
     }
     Notion.instance = this;
     this.notion = new Client({
-      auth: 'secret_TamECZYIrcG7aRzjusGzD2JDWBgxyh9w1DVOFD9767m',
+      auth,
     });
   }
   async queryPage(databaseId, key, value) {
@@ -46,8 +46,8 @@ class Notion {
     const result = await this.notion.pages.update(data);
     return result;
   }
-  static getInstance() {
-    return new Notion();
+  static getInstance(auth) {
+    return new Notion(auth);
   }
 }
 export default Notion;

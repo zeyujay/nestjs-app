@@ -2,8 +2,8 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 13:32:33
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-27 18:46:43
- * @FilePath: /nestjs-app/src/test/service/setItem.ts
+ * @LastEditTime: 2023-03-30 02:35:11
+ * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/setItem.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -17,7 +17,8 @@ import Music from '../page/Music';
 import Game from '../page/Game';
 const setItem = async (obj, id) => {
   console.log(5555555, obj);
-  const notion = Notion.getInstance();
+  const notion = Notion.getInstance(obj.auth);
+  obj.databaseId = obj.databaseId;
   let data;
   switch (obj['类型']) {
     case '书籍':
@@ -38,7 +39,7 @@ const setItem = async (obj, id) => {
   }
   console.log('=======查询重复开始', data);
   const queryPageResult = await notion.queryPage(
-    data.databaseId,
+    obj.databaseId,
     typeEnum[obj['类型']].tag,
     id,
   );
@@ -74,10 +75,13 @@ const setItem = async (obj, id) => {
     console.log('===========添加note', 'begin');
     try {
       const createResult = await notion.createPage(data);
+      console.log('=========createResult', createResult);
       const createAllResult = await setAll(obj, createResult);
+      console.log('=========createAllResult', createAllResult);
+
       const updateData = {
         page_id: createResult.id,
-        parent: { database_id: data.databaseId },
+        parent: { database_id: obj.databaseId },
         properties: {
           All: {
             relation: [
@@ -96,7 +100,7 @@ const setItem = async (obj, id) => {
         data: updateResult,
       };
     } catch (error) {
-      console.log(error.body);
+      console.log(error);
       return {
         code: 0,
         message: '添加失败',

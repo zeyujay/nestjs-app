@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 10:30:39
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-29 23:43:16
+ * @LastEditTime: 2023-03-30 02:38:32
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/test.service.ts
  * @Description:1111
  *
@@ -32,8 +32,8 @@ export class TestService {
     return this.testModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Test> {
-    return this.testModel.findOne({ _id: id }).exec();
+  async findOne(id: number): Promise<Test> {
+    return this.testModel.findOne({ id: id }).exec();
   }
   async addNotionBook(id: string): Promise<string> {
     if (TestService.status === 1) {
@@ -45,7 +45,14 @@ export class TestService {
       const obj = await getWeb(id);
       console.log('=============begin setItem', obj);
       if (obj?.code) {
-        const result: any = await setItem(obj?.data, id);
+        const authEntity = await this.findOne(1);
+        console.log(authEntity);
+        const auth = {
+          auth: authEntity.notion_auth,
+          databaseId: authEntity.notion_database[obj.data['类型']],
+          databaseIdAll: authEntity.notion_database['All'],
+        };
+        const result: any = await setItem(Object.assign(obj?.data, auth), id);
         if (result.code && result.data.id) {
           TestService.status = 0;
           return result.message;
