@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 10:30:39
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-29 23:41:13
+ * @LastEditTime: 2023-03-29 23:43:16
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/test.service.ts
  * @Description:1111
  *
@@ -41,7 +41,6 @@ export class TestService {
       return '正在操作';
     }
     TestService.status = 1;
-    console.log(TestService.status);
     try {
       const obj = await getWeb(id);
       console.log('=============begin setItem', obj);
