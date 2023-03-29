@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-29 23:35:05
+ * @LastEditTime: 2023-03-29 23:38:42
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
@@ -20,6 +20,7 @@ const getWeb = async function (id) {
       ignoreDefaultArgs: ['--disable-extensions'],
       args: ['--no-sandbox', '--disabled-setupid-sandbox'],
     });
+
     console.log('=========getWeb end brower');
     // 控制浏览器打开新标签页面
     const page = (await browser.pages())[0];
