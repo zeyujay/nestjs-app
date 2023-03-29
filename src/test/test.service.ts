@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 10:30:39
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-29 20:14:37
+ * @LastEditTime: 2023-03-29 23:41:13
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/test.service.ts
  * @Description:1111
  *
@@ -55,6 +55,7 @@ export class TestService {
           return result.message;
         }
       } else {
+        TestService.status = 0;
         return obj.message;
       }
     } catch (error) {
