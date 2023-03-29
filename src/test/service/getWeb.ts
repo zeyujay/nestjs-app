@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-28 12:45:34
+ * @LastEditTime: 2023-03-29 23:35:05
  * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
@@ -18,12 +18,12 @@ const getWeb = async function (id) {
       /*         executablePath:
         '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
       ignoreDefaultArgs: ['--disable-extensions'],
-      headless: 'new',
       args: ['--no-sandbox', '--disabled-setupid-sandbox'],
     });
     console.log('=========getWeb end brower');
     // 控制浏览器打开新标签页面
     const page = (await browser.pages())[0];
+    //const page = await browser.newPage();
     /*   await page.setUserAgent(
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
   ); */
@@ -31,13 +31,14 @@ const getWeb = async function (id) {
     // 在新标签中打开要爬取的网页
     const reg = /^(tt\d{7,10}|\d{9}(X|\d)|\d{13}|\d{8,14})$/;
     if (!reg.test(id)) {
+      await page.goto(`https://www.xiaoheihe.cn/home`, {
+        timeout: 120000,
+      });
       await page.setViewport({
         width: 1920,
         height: 1080,
       });
-      await page.goto(`https://www.xiaoheihe.cn/home`, {
-        timeout: 20000,
-      });
+
       const baseData: any = {};
       const searchBtn = await page.$('.search-btn button');
       await searchBtn.click();
