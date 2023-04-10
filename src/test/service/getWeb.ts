@@ -2,8 +2,8 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-03-30 03:26:23
- * @FilePath: /notion-book/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
+ * @LastEditTime: 2023-04-09 04:46:44
+ * @FilePath: /v8/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -15,7 +15,7 @@ const getWeb = async function (id) {
   try {
     console.log('=========getWeb begin brower');
     const browser = await puppeteer?.launch({
-      headless: true,
+      headless: false,
       /*         executablePath:
         '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
       ignoreDefaultArgs: ['--disable-extensions'],
@@ -145,7 +145,10 @@ const getWeb = async function (id) {
         链接: href,
       };
     });
-    await page.goto(baseData['链接'], { timeout: 100000 });
+    await page.goto(baseData['链接'], {
+      waitUntil: 'load',
+      timeout: 0,
+    });
     const detailData: any = await page.evaluate(async () => {
       const obj: any = {};
       const wrapper: any = document.getElementById('wrapper');

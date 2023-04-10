@@ -2,36 +2,23 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-24 13:32:33
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-04-09 05:23:26
- * @FilePath: /v8/Users/zeyu/Documents/work/nestjs-app/src/test/service/setAll.ts
+ * @LastEditTime: 2023-04-09 13:58:38
+ * @FilePath: /v8/Users/zeyu/Documents/work/nestjs-app/src/test/service/setYear.ts
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import Notion from './notion.js';
-const setAll = async (obj, relateData) => {
+const setYear = async (obj, relateData) => {
   const notion = Notion.getInstance(obj.auth);
+
+  const queryYearResult = await notion.queryPage(
+    obj.databaseIdYear,
+    'title',
+    obj['类型'],
+  );
   const data = {
-    parent: { database_id: obj.databaseIdAll },
-    children: [
-      {
-        object: 'block',
-        type: 'link_to_page',
-        link_to_page: {
-          page_id: relateData.id,
-        },
-      },
-    ],
-    icon: {
-      type: 'external',
-      external: { url: obj.cover },
-    },
-    cover: {
-      type: 'external',
-      external: {
-        url: obj.cover,
-      },
-    },
+    parent: { database_id: obj.databaseIdYear },
     properties: {
       小目标: {
         title: [
@@ -60,4 +47,4 @@ const setAll = async (obj, relateData) => {
 
   return result;
 };
-export default setAll;
+export default setYear;
