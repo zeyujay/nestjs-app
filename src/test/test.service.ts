@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-11 10:30:39
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-04-10 18:17:53
+ * @LastEditTime: 2023-04-12 13:02:20
  * @FilePath: /note/Users/zeyu/Documents/work/nestjs-app/src/test/test.service.ts
  * @Description:1111
  *
@@ -44,7 +44,11 @@ export class TestService {
         'title',
         '',
       );
+      console.log(queryPageResult?.results);
       if (queryPageResult?.results?.length > 0) {
+        queryPageResult?.results?.filter((item: any) => {
+          console.log(item.properties.isShowCircle.checkbox);
+        });
         return {
           code: 0,
           message: '获取数据成功',

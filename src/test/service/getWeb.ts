@@ -2,8 +2,8 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-04-09 04:46:44
- * @FilePath: /v8/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
+ * @LastEditTime: 2023-04-27 14:08:32
+ * @FilePath: /note/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -15,7 +15,7 @@ const getWeb = async function (id) {
   try {
     console.log('=========getWeb begin brower');
     const browser = await puppeteer?.launch({
-      headless: false,
+      headless: 'new',
       /*         executablePath:
         '/Users/zeyu/.cache/puppeteer/chrome/mac-1108766/chrome-mac/Chromium.app/Contents/MacOS/Chromium', */
       ignoreDefaultArgs: ['--disable-extensions'],
