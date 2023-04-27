@@ -2,7 +2,7 @@
  * @Author: zeyujay zeyujay@gmail.com
  * @Date: 2023-03-21 11:57:51
  * @LastEditors: zeyujay zeyujay@gmail.com
- * @LastEditTime: 2023-04-27 14:08:32
+ * @LastEditTime: 2023-04-27 15:22:06
  * @FilePath: /note/Users/zeyu/Documents/work/nestjs-app/src/test/service/getWeb.ts
  * @Description:111
  *
@@ -330,7 +330,7 @@ const getWeb = async function (id) {
       const IMdbData = await page.evaluate(async () => {
         const score = document.querySelector(
           'div[data-testid="hero-rating-bar__aggregate-rating__score"]',
-        ).children[0].textContent;
+        )?.children?.[0]?.textContent;
         return score;
       });
       if (IMdbData) {
